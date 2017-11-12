@@ -27,5 +27,17 @@
       ],
       "shutdown_command": "/sbin/halt -p"
     }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline":[
+        "yum install ansible -y"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "./ansible/test.yml"
+    }
   ]
 }
