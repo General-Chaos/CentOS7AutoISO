@@ -1,0 +1,31 @@
+
+{
+  "variables": {
+    "iso": "C:\\Images\\CentOS-7-x86_64-Minimal-1708.iso",
+    "checksum": "5848F2FD31C7ACF3811AD88EACA6F4AA"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "{{ user `iso` }}",
+      "iso_checksum": "{{ user `checksum` }}",
+      "iso_checksum_type": "md5",
+      "vm_name": "MyCentOS7",
+      "guest_os_type": "RedHat_64",
+      "ssh_username": "root",
+      "ssh_password": "test",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "600s",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--audio", "none"]
+      ],
+      "disk_size": "10240",
+      "http_directory": "http",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "shutdown_command": "/sbin/halt -p"
+    }
+  ]
+}
