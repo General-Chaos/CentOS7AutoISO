@@ -32,26 +32,17 @@
     {
       "type": "shell",
       "inline":[
-        "yum install ansible -y",
-        "yum install bzip2 -y",
-        "yum install gcc -y",
-        "yum update kernel -y",
-        "yum install kernel-devel -y",
-        "yum install kernel-headers -y",
-        "shutdown -r"
+        "yum install ansible -y"
       ]
     },
     {
-      "type": "shell",
+      "type": "ansible-local",
+      "playbook_file": "./ansible/dependencies.yml"
+    },
+    {
       "pause_before": "120s",
-      "inline": [
-        "sleep 30",
-        "mkdir /media/VBoxGuestAdditions",
-        "mount -o loop,ro /root/VBoxGuestAdditions.iso /media/VBoxGuestAdditions",
-        "/bin/sh /media/VBoxGuestAdditions/VBoxLinuxAdditions.run",
-        "umount /media/VBoxGuestAdditions",
-        "rmdir /media/VBoxGuestAdditions"
-      ]
+      "type": "ansible-local",
+      "playbook_file": "./ansible/vboxadditions.yml"
     },
     {
       "type": "ansible-local",

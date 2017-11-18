@@ -1,0 +1,20 @@
+- name: Install VboxGuestAdditions
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create VboxAdditions mount dir
+      file:
+        path: /media/VBoxGuestAdditions
+        state: directory
+    # Use the Shell for this as ansible mount alters fstab
+    - name: mount the VboxGuestAdditions iso
+      shell: mount -o loop,ro /root/VBoxGuestAdditions.iso /media/VBoxGuestAdditions
+    - name: run the install script
+      shell: /media/VBoxGuestAdditions/VBoxLinuxAdditions.run
+    - name: unmount the iso
+      shell: umount /media/VBoxGuestAdditions
+    - name: remove the mount dir
+      file:
+        path: /media/VBoxGuestAdditions
+        state: absent
+

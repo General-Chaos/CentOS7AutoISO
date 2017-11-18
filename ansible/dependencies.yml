@@ -1,0 +1,16 @@
+- name: Install yum packages and reboot
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install yum package
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - bzip2
+        - gcc
+        - kernel
+        - kernel-devel
+        - kernel-headers
+    - name: Start reboot
+      shell: shutdown -r
