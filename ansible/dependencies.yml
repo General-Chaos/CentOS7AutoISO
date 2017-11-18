@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: Install yum package
+    - name: Install yum packages
       yum:
         name: "{{ item }}"
         state: latest
@@ -11,6 +11,7 @@
         - genisoimage
         - epel-release
         - yum-utils
+        - createrepo
         - gcc
         - kernel
         - kernel-devel
